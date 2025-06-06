@@ -1,12 +1,11 @@
 from random import randrange
-from solution import Solution
 
 
-class MonteCarlo(Solution):
-    def __init__(self, accuracy=1000):
-        super().__init__()
+class MonteCarlo:
+    def __init__(self, task_numbers=700, time=300, accuracy=1000): # переименовать accuracy в число решений
+        self.tasks_number = task_numbers
+        self.time = time
         self.accuracy = accuracy
-
 
     def get_window(self):
         best_windows = []
@@ -23,3 +22,19 @@ class MonteCarlo(Solution):
                     best_number = self.result(tasks, window)
             best_windows.append(best_window)
         return sum(best_windows) / len(best_windows)
+
+    def result(self, tasks, window):
+        number = 0
+        for i in range(min(int((self.time / window) // 1), self.tasks_number)):
+            if tasks[i] <= window:
+                number += 1
+        return number
+
+
+arr = []
+for i in range(5):
+    m = MonteCarlo()
+    s = m.get_window()
+    s = str(s)
+    print(s[0] + ',' + s[2:], end='\t')
+

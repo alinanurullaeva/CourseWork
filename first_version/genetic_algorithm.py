@@ -17,7 +17,9 @@ class Genetic:
             if self.result(n) == 0:
                 return ['Ура!'] + self.arr[n]
         prob = [(1/self.result(n)) / sum([1 / self.result(i) for i in range(self.n)]) for n in range(self.n)]
+        # print('prob1', prob)
         prob2 = [sum(prob[0: i + 1]) for i in range(self.n)]
+        # print('prob2', prob2)
         return prob2
 
     def average_result(self):
@@ -28,7 +30,7 @@ class Genetic:
         prob = self.probability()
         if prob[0] == 'Ура!':
             return prob
-        for i in range(min(self.n * 4, self.n ** 2 - 1)):
+        for i in range(self.n * 4):
             mother = random.random()
             mother_id = 0
             for j in range(self.n):
@@ -61,8 +63,11 @@ class Genetic:
 
     def get_result(self):
         result = []
+        i = 0
         while not result:
+            i += 1
             result = self.crossover()
+        print(i)
         return result
 
 
